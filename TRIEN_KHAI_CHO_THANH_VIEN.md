@@ -15,7 +15,7 @@ Cài đặt sẵn các phần mềm sau:
 ## 🚀 Bước 1: Clone project
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/doanthetin193/smart_pitch_booking.git
 cd smartpitchbooking
 ```
 

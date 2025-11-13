@@ -1,20 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { pitchAPI } from '../services/api';
-import { useAuth } from '../contexts/AuthContext';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { pitchAPI } from "../services/api";
+import { useAuth } from "../contexts/AuthContext";
 
 const AdminDashboard = () => {
   const [pitches, setPitches] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [filter, setFilter] = useState('all'); // all, pending, approved
+  const [error, setError] = useState("");
+  const [filter, setFilter] = useState("all"); // all, pending, approved
 
   const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user || user.role !== 'ADMIN') {
-      navigate('/');
+    if (!user || user.role !== "ADMIN") {
+      navigate("/");
       return;
     }
     fetchPitches();
@@ -22,10 +22,10 @@ const AdminDashboard = () => {
 
   const fetchPitches = async () => {
     try {
-      const response = await pitchAPI.getAll();
+      const response = await pitchAPI.getAllForAdmin();
       setPitches(response.data);
     } catch {
-      setError('Không thể tải danh sách sân');
+      setError("Không thể tải danh sách sân");
     } finally {
       setLoading(false);
     }
@@ -36,31 +36,31 @@ const AdminDashboard = () => {
       await pitchAPI.approve(id);
       fetchPitches();
     } catch {
-      setError('Không thể duyệt sân');
+      setError("Không thể duyệt sân");
     }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Bạn có chắc muốn xóa sân này?')) return;
+    if (!window.confirm("Bạn có chắc muốn xóa sân này?")) return;
 
     try {
       await pitchAPI.delete(id);
       fetchPitches();
     } catch {
-      setError('Không thể xóa sân');
+      setError("Không thể xóa sân");
     }
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
     }).format(price);
   };
 
   const filteredPitches = pitches.filter((pitch) => {
-    if (filter === 'pending') return !pitch.isApproved;
-    if (filter === 'approved') return pitch.isApproved;
+    if (filter === "pending") return !pitch.isApproved;
+    if (filter === "approved") return pitch.isApproved;
     return true;
   });
 
@@ -76,28 +76,28 @@ const AdminDashboard = () => {
 
       <div style={styles.filterContainer}>
         <button
-          onClick={() => setFilter('all')}
+          onClick={() => setFilter("all")}
           style={{
             ...styles.filterBtn,
-            ...(filter === 'all' ? styles.filterBtnActive : {}),
+            ...(filter === "all" ? styles.filterBtnActive : {}),
           }}
         >
           Tất cả ({pitches.length})
         </button>
         <button
-          onClick={() => setFilter('pending')}
+          onClick={() => setFilter("pending")}
           style={{
             ...styles.filterBtn,
-            ...(filter === 'pending' ? styles.filterBtnActive : {}),
+            ...(filter === "pending" ? styles.filterBtnActive : {}),
           }}
         >
           Chờ duyệt ({pitches.filter((p) => !p.isApproved).length})
         </button>
         <button
-          onClick={() => setFilter('approved')}
+          onClick={() => setFilter("approved")}
           style={{
             ...styles.filterBtn,
-            ...(filter === 'approved' ? styles.filterBtnActive : {}),
+            ...(filter === "approved" ? styles.filterBtnActive : {}),
           }}
         >
           Đã duyệt ({pitches.filter((p) => p.isApproved).length})
@@ -132,7 +132,9 @@ const AdminDashboard = () => {
                   <td style={styles.td}>
                     <strong>{pitch.name}</strong>
                   </td>
-                  <td style={styles.td}>{pitch.type.replace('PITCH_', 'Sân ')}</td>
+                  <td style={styles.td}>
+                    {pitch.type.replace("PITCH_", "Sân ")}
+                  </td>
                   <td style={styles.td}>{pitch.address}</td>
                   <td style={styles.td}>{formatPrice(pitch.pricePerHour)}</td>
                   <td style={styles.td}>{pitch.ownerName}</td>
@@ -179,115 +181,115 @@ const AdminDashboard = () => {
 
 const styles = {
   container: {
-    maxWidth: '1400px',
-    margin: '0 auto',
-    padding: '2rem 1rem',
+    maxWidth: "1400px",
+    margin: "0 auto",
+    padding: "2rem 1rem",
   },
   loading: {
-    textAlign: 'center',
-    padding: '3rem',
-    fontSize: '1.2rem',
-    color: '#7f8c8d',
+    textAlign: "center",
+    padding: "3rem",
+    fontSize: "1.2rem",
+    color: "#7f8c8d",
   },
   title: {
-    fontSize: '2rem',
-    color: '#2c3e50',
-    marginBottom: '2rem',
+    fontSize: "2rem",
+    color: "#2c3e50",
+    marginBottom: "2rem",
   },
   error: {
-    backgroundColor: '#e74c3c',
-    color: 'white',
-    padding: '1rem',
-    borderRadius: '4px',
-    marginBottom: '1rem',
+    backgroundColor: "#e74c3c",
+    color: "white",
+    padding: "1rem",
+    borderRadius: "4px",
+    marginBottom: "1rem",
   },
   filterContainer: {
-    display: 'flex',
-    gap: '1rem',
-    marginBottom: '2rem',
+    display: "flex",
+    gap: "1rem",
+    marginBottom: "2rem",
   },
   filterBtn: {
-    padding: '0.75rem 1.5rem',
-    border: '2px solid #ddd',
-    backgroundColor: 'white',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '1rem',
-    transition: 'all 0.3s',
+    padding: "0.75rem 1.5rem",
+    border: "2px solid #ddd",
+    backgroundColor: "white",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "1rem",
+    transition: "all 0.3s",
   },
   filterBtnActive: {
-    backgroundColor: '#3498db',
-    color: 'white',
-    borderColor: '#3498db',
+    backgroundColor: "#3498db",
+    color: "white",
+    borderColor: "#3498db",
   },
   tableContainer: {
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    overflow: 'auto',
+    backgroundColor: "white",
+    borderRadius: "8px",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+    overflow: "auto",
   },
   table: {
-    width: '100%',
-    borderCollapse: 'collapse',
+    width: "100%",
+    borderCollapse: "collapse",
   },
   tableHeader: {
-    backgroundColor: '#34495e',
-    color: 'white',
+    backgroundColor: "#34495e",
+    color: "white",
   },
   th: {
-    padding: '1rem',
-    textAlign: 'left',
-    fontWeight: '600',
+    padding: "1rem",
+    textAlign: "left",
+    fontWeight: "600",
   },
   tableRow: {
-    borderBottom: '1px solid #ecf0f1',
+    borderBottom: "1px solid #ecf0f1",
   },
   td: {
-    padding: '1rem',
+    padding: "1rem",
   },
   noData: {
-    textAlign: 'center',
-    padding: '3rem',
-    color: '#7f8c8d',
+    textAlign: "center",
+    padding: "3rem",
+    color: "#7f8c8d",
   },
   statusApproved: {
-    color: '#27ae60',
-    fontWeight: '600',
+    color: "#27ae60",
+    fontWeight: "600",
   },
   statusPending: {
-    color: '#f39c12',
-    fontWeight: '600',
+    color: "#f39c12",
+    fontWeight: "600",
   },
   actions: {
-    display: 'flex',
-    gap: '0.5rem',
+    display: "flex",
+    gap: "0.5rem",
   },
   approveBtn: {
-    backgroundColor: '#27ae60',
-    color: 'white',
-    border: 'none',
-    padding: '0.5rem 0.75rem',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '0.875rem',
+    backgroundColor: "#27ae60",
+    color: "white",
+    border: "none",
+    padding: "0.5rem 0.75rem",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "0.875rem",
   },
   viewBtn: {
-    backgroundColor: '#3498db',
-    color: 'white',
-    border: 'none',
-    padding: '0.5rem 0.75rem',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '0.875rem',
+    backgroundColor: "#3498db",
+    color: "white",
+    border: "none",
+    padding: "0.5rem 0.75rem",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "0.875rem",
   },
   deleteBtn: {
-    backgroundColor: '#e74c3c',
-    color: 'white',
-    border: 'none',
-    padding: '0.5rem 0.75rem',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '0.875rem',
+    backgroundColor: "#e74c3c",
+    color: "white",
+    border: "none",
+    padding: "0.5rem 0.75rem",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "0.875rem",
   },
 };
 
