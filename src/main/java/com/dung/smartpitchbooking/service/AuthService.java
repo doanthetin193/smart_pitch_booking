@@ -71,15 +71,21 @@ public class AuthService {
     }
     
     public AuthResponse login(LoginRequest request) {
+        // Kiểm tra user có tồn tại không
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RuntimeException("Tên đăng nhập hoặc mật khẩu không đúng"));
+        
+        // Kiểm tra tài khoản có bị khóa không
+        if (!user.getIsActive()) {
+            throw new RuntimeException("Tài khoản đã bị khóa. Vui lòng liên hệ Admin.");
+        }
+        
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
         
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenProvider.generateToken(authentication);
-        
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
         
         return new AuthResponse(
                 token,

@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/pitches")
@@ -101,5 +103,41 @@ public class PitchController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    
+    // ==================== TÌM KIẾM & LỌC ====================
+    
+    // Public - Tìm kiếm và lọc sân
+    @GetMapping("/search")
+    public ResponseEntity<List<PitchResponse>> searchPitches(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String district,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice) {
+        List<PitchResponse> pitches = pitchService.searchPitches(keyword, city, district, type, minPrice, maxPrice);
+        return ResponseEntity.ok(pitches);
+    }
+    
+    // Public - Lấy danh sách thành phố
+    @GetMapping("/cities")
+    public ResponseEntity<List<String>> getCities() {
+        List<String> cities = pitchService.getCities();
+        return ResponseEntity.ok(cities);
+    }
+    
+    // Public - Lấy danh sách quận theo thành phố
+    @GetMapping("/districts")
+    public ResponseEntity<List<String>> getDistrictsByCity(@RequestParam String city) {
+        List<String> districts = pitchService.getDistrictsByCity(city);
+        return ResponseEntity.ok(districts);
+    }
+    
+    // Public - Lấy khoảng giá min-max
+    @GetMapping("/price-range")
+    public ResponseEntity<Map<String, BigDecimal>> getPriceRange() {
+        Map<String, BigDecimal> priceRange = pitchService.getPriceRange();
+        return ResponseEntity.ok(priceRange);
     }
 }

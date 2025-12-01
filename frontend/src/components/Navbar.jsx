@@ -22,11 +22,21 @@ const Navbar = () => {
           
           {user ? (
             <>
+              {user.role === 'USER' && (
+                <Link to="/my-bookings" style={styles.link}>Lịch đặt của tôi</Link>
+              )}
               {user.role === 'OWNER' && (
-                <Link to="/my-pitches" style={styles.link}>Sân của tôi</Link>
+                <>
+                  <Link to="/my-pitches" style={styles.link}>Sân của tôi</Link>
+                  <Link to="/owner/bookings" style={styles.link}>Đơn đặt sân</Link>
+                  <Link to="/owner/statistics" style={styles.link}>📊 Thống kê</Link>
+                </>
               )}
               {user.role === 'ADMIN' && (
-                <Link to="/admin" style={styles.link}>Quản trị</Link>
+                <>
+                  <Link to="/admin" style={styles.link}>Duyệt sân</Link>
+                  <Link to="/admin/users" style={styles.link}>Quản lý Users</Link>
+                </>
               )}
               <span style={styles.username}>👤 {user.fullName}</span>
               <button onClick={handleLogout} style={styles.logoutBtn}>

@@ -6,14 +6,32 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import PitchDetail from './pages/PitchDetail';
 import MyPitches from './pages/MyPitches';
+import MyBookings from './pages/MyBookings';
+import OwnerBookings from './pages/OwnerBookings';
+import OwnerStatistics from './pages/OwnerStatistics';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminUsers from './pages/AdminUsers';
 
 // Protected Route component
-const ProtectedRoute = ({ children, requiredRole }) => {
-  const { user } = useAuth();
+const ProtectedRoute = ({ children, requiredRole, excludeRoles = [] }) => {
+  const { user, loading } = useAuth();
+
+  // Chờ load xong user từ localStorage
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+        <p>Đang tải...</p>
+      </div>
+    );
+  }
 
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  // Kiểm tra role bị loại trừ
+  if (excludeRoles.includes(user.role)) {
+    return <Navigate to="/" replace />;
   }
 
   if (requiredRole && user.role !== requiredRole && user.role !== 'ADMIN') {
@@ -45,10 +63,46 @@ const AppContent = () => {
           />
           
           <Route
+            path="/my-bookings"
+            element={
+              <ProtectedRoute excludeRoles={['OWNER', 'ADMIN']}>
+                <MyBookings />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/owner/bookings"
+            element={
+              <ProtectedRoute requiredRole="OWNER">
+                <OwnerBookings />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/owner/statistics"
+            element={
+              <ProtectedRoute requiredRole="OWNER">
+                <OwnerStatistics />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
             path="/admin"
             element={
               <ProtectedRoute requiredRole="ADMIN">
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute requiredRole="ADMIN">
+                <AdminUsers />
               </ProtectedRoute>
             }
           />

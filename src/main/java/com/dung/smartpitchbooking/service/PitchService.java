@@ -11,7 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -119,6 +122,52 @@ public class PitchService {
         pitch.setIsApproved(true);
         Pitch approvedPitch = pitchRepository.save(pitch);
         return convertToResponse(approvedPitch);
+    }
+    
+    /**
+     * Tìm kiếm và lọc sân
+     */
+    public List<PitchResponse> searchPitches(String keyword, String city, String district, 
+                                              String type, BigDecimal minPrice, BigDecimal maxPrice) {
+        Pitch.PitchType pitchType = null;
+        if (type != null && !type.isEmpty()) {
+            try {
+                pitchType = Pitch.PitchType.valueOf(type);
+            } catch (IllegalArgumentException e) {
+                // Invalid type, ignore
+            }
+        }
+        
+        return pitchRepository.searchPitches(keyword, city, district, pitchType, minPrice, maxPrice)
+                .stream()
+                .map(this::convertToResponse)
+                .collect(Collectors.toList());
+    }
+    
+    /**
+     * Lấy danh sách thành phố có sân
+     */
+    public List<String> getCities() {
+        return pitchRepository.findDistinctCities();
+    }
+    
+    /**
+     * Lấy danh sách quận theo thành phố
+     */
+    public List<String> getDistrictsByCity(String city) {
+        return pitchRepository.findDistrictsByCity(city);
+    }
+    
+    /**
+     * Lấy khoảng giá
+     */
+    public Map<String, BigDecimal> getPriceRange() {
+        Map<String, BigDecimal> range = new HashMap<>();
+        BigDecimal minPrice = pitchRepository.findMinPrice();
+        BigDecimal maxPrice = pitchRepository.findMaxPrice();
+        range.put("minPrice", minPrice != null ? minPrice : BigDecimal.ZERO);
+        range.put("maxPrice", maxPrice != null ? maxPrice : BigDecimal.valueOf(1000000));
+        return range;
     }
     
     private User getCurrentUser() {
