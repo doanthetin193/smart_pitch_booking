@@ -67,19 +67,66 @@ const Home = () => {
     <div>
       {/* Hero Banner */}
       <div style={styles.hero}>
+        <div style={styles.heroOverlay}></div>
         <div style={styles.heroContent}>
-          <h1 style={styles.heroTitle}>Đặt Sân Bóng Dễ Dàng</h1>
+          <div style={styles.heroBadge}>⚽ Nền tảng đặt sân #1 Việt Nam</div>
+          <h1 style={styles.heroTitle}>
+            Đặt Sân Bóng <span style={styles.heroHighlight}>Chuyên Nghiệp</span>
+          </h1>
           <p style={styles.heroSubtitle}>
-            Chọn Sân, Chọn giờ, nâng cao sức khỏe - Chỉ vài cú Click!
+            Tìm kiếm, so sánh và đặt sân bóng dễ dàng chỉ trong vài giây.
+            <br />Hơn 1000+ sân bóng trên toàn quốc đang chờ bạn!
           </p>
           <div style={styles.heroButtons}>
-            <button style={styles.guideBtn}>Hướng Dẫn</button>
-            <button style={styles.listBtn} onClick={() => {
+            <button style={styles.primaryBtn} onClick={() => {
               document.getElementById('pitches-section')?.scrollIntoView({ behavior: 'smooth' });
             }}>
-              Danh Sách Sân
+              🔍 Tìm Sân Ngay
+            </button>
+            <button style={styles.secondaryBtn}>
+              📖 Hướng Dẫn
             </button>
           </div>
+          <div style={styles.heroStats}>
+            <div style={styles.statItem}>
+              <span style={styles.statNumber}>1000+</span>
+              <span style={styles.statLabel}>Sân bóng</span>
+            </div>
+            <div style={styles.statDivider}></div>
+            <div style={styles.statItem}>
+              <span style={styles.statNumber}>50K+</span>
+              <span style={styles.statLabel}>Lượt đặt</span>
+            </div>
+            <div style={styles.statDivider}></div>
+            <div style={styles.statItem}>
+              <span style={styles.statNumber}>99%</span>
+              <span style={styles.statLabel}>Hài lòng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Features Section */}
+      <div style={styles.featuresSection}>
+        <div style={styles.featureCard}>
+          <div style={styles.featureIcon}>🎯</div>
+          <h3 style={styles.featureTitle}>Đặt Nhanh</h3>
+          <p style={styles.featureDesc}>Chỉ 3 bước đơn giản để hoàn tất đặt sân</p>
+        </div>
+        <div style={styles.featureCard}>
+          <div style={styles.featureIcon}>💰</div>
+          <h3 style={styles.featureTitle}>Giá Tốt</h3>
+          <p style={styles.featureDesc}>Cam kết giá tốt nhất thị trường</p>
+        </div>
+        <div style={styles.featureCard}>
+          <div style={styles.featureIcon}>🛡️</div>
+          <h3 style={styles.featureTitle}>An Toàn</h3>
+          <p style={styles.featureDesc}>Đảm bảo quyền lợi khách hàng</p>
+        </div>
+        <div style={styles.featureCard}>
+          <div style={styles.featureIcon}>⭐</div>
+          <h3 style={styles.featureTitle}>Chất Lượng</h3>
+          <p style={styles.featureDesc}>Sân bóng được đánh giá và kiểm duyệt</p>
         </div>
       </div>
 
@@ -89,22 +136,31 @@ const Home = () => {
         <SearchFilter onSearch={handleSearch} onReset={handleReset} />
         
         <div style={styles.sectionHeader}>
-          <h2 style={styles.sectionTitle}>
-            {searchPerformed ? `Kết quả tìm kiếm (${pitches.length} sân)` : 'Tất cả sân bóng'}
-          </h2>
+          <div>
+            <h2 style={styles.sectionTitle}>
+              {searchPerformed ? '🔍 Kết quả tìm kiếm' : '🏟️ Sân Bóng Nổi Bật'}
+            </h2>
+            <p style={styles.sectionSubtitle}>
+              {searchPerformed ? `Tìm thấy ${pitches.length} sân phù hợp` : 'Khám phá những sân bóng tốt nhất'}
+            </p>
+          </div>
           {searchPerformed && (
             <button onClick={handleReset} style={styles.showAllBtn}>
-              Xem tất cả sân
+              ← Xem tất cả
             </button>
           )}
         </div>
         
         {loading ? (
-          <div style={styles.loadingInline}>Đang tìm kiếm...</div>
+          <div style={styles.loadingInline}>
+            <div style={styles.spinner}></div>
+            <span>Đang tìm kiếm...</span>
+          </div>
         ) : pitches.length === 0 ? (
           <div style={styles.noPitches}>
-            <span style={styles.noPitchesIcon}>😢</span>
-            <p>Không tìm thấy sân nào phù hợp</p>
+            <span style={styles.noPitchesIcon}>⚽</span>
+            <h3>Không tìm thấy sân nào</h3>
+            <p>Thử thay đổi bộ lọc hoặc xem tất cả sân có sẵn</p>
             <button onClick={handleReset} style={styles.resetSearchBtn}>
               Xem tất cả sân
             </button>
@@ -115,37 +171,40 @@ const Home = () => {
               <div key={pitch.id} style={styles.card}>
                 <div style={styles.imageWrapper}>
                   <img
-                    src={pitch.images || 'https://picsum.photos/400/300'}
+                    src={pitch.images || 'https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=800'}
                     alt={pitch.name}
                     style={styles.image}
                   />
+                  <div style={styles.imageOverlay}></div>
                   <span style={styles.pitchTypeBadge}>
-                    {getPitchTypeLabel(pitch.type)}
+                    ⚽ {getPitchTypeLabel(pitch.type)}
                   </span>
+                  <div style={styles.priceTag}>
+                    {formatPrice(pitch.pricePerHour)}/h
+                  </div>
                 </div>
                 <div style={styles.cardContent}>
                   <h3 style={styles.pitchName}>{pitch.name}</h3>
-                  <p style={styles.pitchLocation}>
-                    📍 {pitch.district}, {pitch.city}
-                  </p>
-                  <p style={styles.pitchPrice}>
-                    💰 {formatPrice(pitch.pricePerHour)}/giờ
-                  </p>
-                  <p style={styles.pitchTime}>
-                    🕐 {pitch.openTime} - {pitch.closeTime}
-                  </p>
+                  <div style={styles.pitchInfo}>
+                    <p style={styles.pitchLocation}>
+                      <span style={styles.infoIcon}>📍</span> {pitch.district}, {pitch.city}
+                    </p>
+                    <p style={styles.pitchTime}>
+                      <span style={styles.infoIcon}>🕐</span> {pitch.openTime} - {pitch.closeTime}
+                    </p>
+                  </div>
                   <div style={styles.cardActions}>
                     <button
                       onClick={() => navigate(`/pitch/${pitch.id}`)}
                       style={styles.detailBtn}
                     >
-                      Chi tiết
+                      👁️ Chi tiết
                     </button>
                     <button
                       onClick={() => navigate(`/pitch/${pitch.id}`)}
                       style={styles.bookBtn}
                     >
-                      Đặt ngay
+                      ⚡ Đặt ngay
                     </button>
                   </div>
                 </div>
@@ -155,85 +214,235 @@ const Home = () => {
         )}
       </div>
 
-      {/* Footer Section: 3 Columns */}
-      <div style={styles.footer}>
-        <div style={styles.footerColumn}>
-          <h3 style={styles.footerTitle}>Giới thiệu</h3>
-          <p style={styles.footerText}>
-            Cung cấp các tiện ích thông minh giúp bạn tìm sân bãi và đặt sân một cách hiệu quả nhất.
-          </p>
+      {/* Footer Section */}
+      <footer style={styles.footer}>
+        <div style={styles.footerTop}>
+          <div style={styles.footerBrand}>
+            <h2 style={styles.footerLogo}>⚽ SânBóng<span style={styles.footerLogoAccent}>Pro</span></h2>
+            <p style={styles.footerTagline}>Nền tảng đặt sân bóng hàng đầu Việt Nam</p>
+          </div>
+          <div style={styles.footerLinks}>
+            <div style={styles.footerColumn}>
+              <h4 style={styles.footerTitle}>Về chúng tôi</h4>
+              <ul style={styles.footerList}>
+                <li>Giới thiệu</li>
+                <li>Liên hệ</li>
+                <li>Tuyển dụng</li>
+              </ul>
+            </div>
+            <div style={styles.footerColumn}>
+              <h4 style={styles.footerTitle}>Hỗ trợ</h4>
+              <ul style={styles.footerList}>
+                <li>Hướng dẫn đặt sân</li>
+                <li>Câu hỏi thường gặp</li>
+                <li>Điều khoản sử dụng</li>
+              </ul>
+            </div>
+            <div style={styles.footerColumn}>
+              <h4 style={styles.footerTitle}>Liên hệ</h4>
+              <ul style={styles.footerList}>
+                <li>📞 1900-xxxx</li>
+                <li>📧 support@sanbong.pro</li>
+                <li>📍 TP. Hồ Chí Minh</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        
-        <div style={styles.footerColumn}>
-          <h3 style={styles.footerTitle}>Thông tin</h3>
-          <p style={styles.footerText}>
-            Công ty cổ phần gmail
-          </p>
+        <div style={styles.footerBottom}>
+          <p>© 2025 SânBóngPro. All rights reserved.</p>
         </div>
-        
-        <div style={styles.footerColumn}>
-          <h3 style={styles.footerTitle}>Liên hệ</h3>
-          <p style={styles.footerText}>
-            912012901192
-          </p>
-        </div>
-      </div>
+      </footer>
     </div>
   );
 };
 
 const styles = {
+  // Hero Section - Football Field Theme
   hero: {
-    backgroundColor: '#d5d5d5',
-    padding: '4rem 2rem',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 50%, #1a5f2a 100%)',
+    padding: '6rem 2rem',
     textAlign: 'center',
     marginTop: '60px',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  heroOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 80px)',
+    pointerEvents: 'none',
   },
   heroContent: {
-    maxWidth: '800px',
+    maxWidth: '900px',
     margin: '0 auto',
+    position: 'relative',
+    zIndex: 1,
+  },
+  heroBadge: {
+    display: 'inline-block',
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    color: '#fbbf24',
+    padding: '0.5rem 1.25rem',
+    borderRadius: '25px',
+    fontSize: '0.9rem',
+    fontWeight: '600',
+    marginBottom: '1.5rem',
+    backdropFilter: 'blur(10px)',
+    border: '1px solid rgba(255,255,255,0.2)',
   },
   heroTitle: {
-    fontSize: '2.5rem',
-    color: '#a94442',
+    fontSize: '3rem',
+    color: '#ffffff',
     marginBottom: '1rem',
-    fontWeight: '600',
+    fontWeight: '700',
+    textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+    lineHeight: '1.2',
+  },
+  heroHighlight: {
+    color: '#fbbf24',
+    display: 'block',
   },
   heroSubtitle: {
-    fontSize: '1.1rem',
-    color: '#333',
-    marginBottom: '2rem',
+    fontSize: '1.15rem',
+    color: 'rgba(255,255,255,0.9)',
+    marginBottom: '2.5rem',
+    lineHeight: '1.7',
   },
   heroButtons: {
     display: 'flex',
     gap: '1rem',
     justifyContent: 'center',
+    flexWrap: 'wrap',
+    marginBottom: '3rem',
   },
-  guideBtn: {
-    backgroundColor: '#00b894',
-    color: 'white',
+  primaryBtn: {
+    background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
+    color: '#0f3d1a',
     border: 'none',
-    padding: '0.875rem 2rem',
-    borderRadius: '4px',
-    fontSize: '1rem',
+    padding: '1rem 2.5rem',
+    borderRadius: '50px',
+    fontSize: '1.05rem',
+    fontWeight: '700',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(251, 191, 36, 0.4)',
+  },
+  secondaryBtn: {
+    backgroundColor: 'transparent',
+    color: '#ffffff',
+    border: '2px solid rgba(255,255,255,0.5)',
+    padding: '1rem 2.5rem',
+    borderRadius: '50px',
+    fontSize: '1.05rem',
     fontWeight: '600',
     cursor: 'pointer',
+    transition: 'all 0.3s ease',
   },
-  listBtn: {
-    backgroundColor: '#00b894',
-    color: 'white',
-    border: 'none',
-    padding: '0.875rem 2rem',
-    borderRadius: '4px',
-    fontSize: '1rem',
-    fontWeight: '600',
-    cursor: 'pointer',
+  heroStats: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '2rem',
+    flexWrap: 'wrap',
   },
+  statItem: {
+    textAlign: 'center',
+  },
+  statNumber: {
+    display: 'block',
+    fontSize: '2rem',
+    fontWeight: '700',
+    color: '#fbbf24',
+  },
+  statLabel: {
+    fontSize: '0.9rem',
+    color: 'rgba(255,255,255,0.8)',
+  },
+  statDivider: {
+    width: '1px',
+    height: '40px',
+    backgroundColor: 'rgba(255,255,255,0.3)',
+  },
+
+  // Features Section
+  featuresSection: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    gap: '1.5rem',
+    maxWidth: '1200px',
+    margin: '-3rem auto 0',
+    padding: '0 2rem',
+    position: 'relative',
+    zIndex: 2,
+  },
+  featureCard: {
+    backgroundColor: '#ffffff',
+    padding: '2rem 1.5rem',
+    borderRadius: '16px',
+    textAlign: 'center',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    border: '1px solid rgba(26, 95, 42, 0.1)',
+  },
+  featureIcon: {
+    fontSize: '2.5rem',
+    marginBottom: '1rem',
+  },
+  featureTitle: {
+    fontSize: '1.1rem',
+    color: '#1a5f2a',
+    fontWeight: '700',
+    marginBottom: '0.5rem',
+  },
+  featureDesc: {
+    fontSize: '0.9rem',
+    color: '#666',
+    margin: 0,
+  },
+
+  // Container
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '3rem 2rem',
+    padding: '4rem 2rem',
   },
+
+  // Section Header
+  sectionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: '2rem',
+    flexWrap: 'wrap',
+    gap: '1rem',
+  },
+  sectionTitle: {
+    fontSize: '1.75rem',
+    color: '#1a5f2a',
+    fontWeight: '700',
+    margin: 0,
+  },
+  sectionSubtitle: {
+    fontSize: '0.95rem',
+    color: '#666',
+    marginTop: '0.5rem',
+  },
+  showAllBtn: {
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
+    color: 'white',
+    border: 'none',
+    padding: '0.6rem 1.25rem',
+    borderRadius: '25px',
+    fontSize: '0.9rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+
+  // Loading & Empty States
   loading: {
     textAlign: 'center',
     padding: '3rem',
@@ -243,110 +452,133 @@ const styles = {
   },
   loadingInline: {
     textAlign: 'center',
-    padding: '2rem',
-    fontSize: '1.1rem',
-    color: '#7f8c8d',
-  },
-  sectionHeader: {
+    padding: '3rem',
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: '1.5rem',
-    flexWrap: 'wrap',
     gap: '1rem',
   },
-  sectionTitle: {
-    fontSize: '1.75rem',
-    color: '#333',
-    fontWeight: '600',
-    margin: 0,
-  },
-  showAllBtn: {
-    backgroundColor: '#3498db',
-    color: 'white',
-    border: 'none',
-    padding: '0.5rem 1rem',
-    borderRadius: '6px',
-    fontSize: '0.9rem',
-    cursor: 'pointer',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: '2rem',
+  spinner: {
+    width: '40px',
+    height: '40px',
+    border: '4px solid #e8f5e9',
+    borderTop: '4px solid #1a5f2a',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite',
   },
   noPitches: {
     textAlign: 'center',
     padding: '4rem 2rem',
-    color: '#7f8c8d',
-    backgroundColor: '#f8f9fa',
-    borderRadius: '12px',
+    backgroundColor: '#f0fdf4',
+    borderRadius: '16px',
+    border: '2px dashed #86efac',
   },
   noPitchesIcon: {
-    fontSize: '3rem',
+    fontSize: '4rem',
     display: 'block',
     marginBottom: '1rem',
   },
   resetSearchBtn: {
-    marginTop: '1rem',
-    backgroundColor: '#00b894',
+    marginTop: '1.5rem',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
     color: 'white',
     border: 'none',
-    padding: '0.75rem 1.5rem',
-    borderRadius: '6px',
-    fontSize: '0.95rem',
+    padding: '0.875rem 2rem',
+    borderRadius: '25px',
+    fontSize: '1rem',
+    fontWeight: '600',
     cursor: 'pointer',
+    transition: 'all 0.3s ease',
   },
+
+  // Pitch Grid
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+    gap: '2rem',
+  },
+
+  // Pitch Card
   card: {
-    backgroundColor: 'white',
-    borderRadius: '12px',
+    backgroundColor: '#ffffff',
+    borderRadius: '16px',
     overflow: 'hidden',
-    boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-    transition: 'transform 0.3s, box-shadow 0.3s',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    border: '1px solid rgba(26, 95, 42, 0.1)',
   },
   imageWrapper: {
     position: 'relative',
+    overflow: 'hidden',
   },
   image: {
     width: '100%',
     height: '200px',
     objectFit: 'cover',
+    transition: 'transform 0.3s ease',
+  },
+  imageOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '60%',
+    background: 'linear-gradient(transparent, rgba(0,0,0,0.3))',
+    pointerEvents: 'none',
   },
   pitchTypeBadge: {
     position: 'absolute',
-    top: '10px',
-    right: '10px',
-    backgroundColor: '#00b894',
+    top: '12px',
+    left: '12px',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
     color: 'white',
-    padding: '0.3rem 0.8rem',
+    padding: '0.4rem 1rem',
     borderRadius: '20px',
     fontSize: '0.8rem',
     fontWeight: '600',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
+  },
+  priceTag: {
+    position: 'absolute',
+    bottom: '12px',
+    right: '12px',
+    backgroundColor: '#fbbf24',
+    color: '#0f3d1a',
+    padding: '0.5rem 1rem',
+    borderRadius: '8px',
+    fontSize: '0.95rem',
+    fontWeight: '700',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
   },
   cardContent: {
-    padding: '1.25rem',
+    padding: '1.5rem',
   },
   pitchName: {
-    fontSize: '1.2rem',
-    color: '#333',
-    marginBottom: '0.75rem',
-    fontWeight: '600',
+    fontSize: '1.25rem',
+    color: '#1a5f2a',
+    marginBottom: '1rem',
+    fontWeight: '700',
+  },
+  pitchInfo: {
+    marginBottom: '1.25rem',
   },
   pitchLocation: {
     fontSize: '0.9rem',
     color: '#666',
     marginBottom: '0.5rem',
-  },
-  pitchPrice: {
-    fontSize: '1rem',
-    color: '#00b894',
-    fontWeight: '600',
-    marginBottom: '0.5rem',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
   },
   pitchTime: {
-    fontSize: '0.85rem',
-    color: '#888',
-    marginBottom: '1rem',
+    fontSize: '0.9rem',
+    color: '#666',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+  },
+  infoIcon: {
+    fontSize: '1rem',
   },
   cardActions: {
     display: 'flex',
@@ -354,49 +586,92 @@ const styles = {
   },
   detailBtn: {
     flex: 1,
-    backgroundColor: '#95a5a6',
-    color: 'white',
+    backgroundColor: '#e8f5e9',
+    color: '#1a5f2a',
     border: 'none',
-    padding: '0.6rem 1rem',
-    borderRadius: '6px',
+    padding: '0.75rem 1rem',
+    borderRadius: '10px',
     fontSize: '0.9rem',
+    fontWeight: '600',
     cursor: 'pointer',
-    transition: 'background-color 0.3s',
+    transition: 'all 0.3s ease',
   },
   bookBtn: {
     flex: 1,
-    backgroundColor: '#00b894',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
     color: 'white',
     border: 'none',
-    padding: '0.6rem 1rem',
-    borderRadius: '6px',
+    padding: '0.75rem 1rem',
+    borderRadius: '10px',
     fontSize: '0.9rem',
-    fontWeight: '600',
+    fontWeight: '700',
     cursor: 'pointer',
-    transition: 'background-color 0.3s',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(26, 95, 42, 0.3)',
   },
+
+  // Footer
   footer: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '2rem',
-    backgroundColor: '#2c3e50',
+    background: 'linear-gradient(135deg, #0f3d1a 0%, #1a5f2a 100%)',
     color: 'white',
-    padding: '3rem 2rem',
-    marginTop: '3rem',
+    marginTop: '4rem',
+  },
+  footerTop: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '3rem',
+    padding: '4rem 2rem 3rem',
+    maxWidth: '1200px',
+    margin: '0 auto',
+  },
+  footerBrand: {
+    flex: '1 1 300px',
+  },
+  footerLogo: {
+    fontSize: '1.75rem',
+    fontWeight: '700',
+    margin: 0,
+    marginBottom: '0.75rem',
+  },
+  footerLogoAccent: {
+    color: '#fbbf24',
+  },
+  footerTagline: {
+    color: 'rgba(255,255,255,0.7)',
+    fontSize: '0.95rem',
+    margin: 0,
+  },
+  footerLinks: {
+    display: 'flex',
+    flex: '2 1 500px',
+    gap: '2rem',
+    flexWrap: 'wrap',
   },
   footerColumn: {
-    color: '#ecf0f1',
+    flex: '1 1 150px',
   },
   footerTitle: {
-    fontSize: '1.2rem',
-    color: 'white',
+    fontSize: '1rem',
+    fontWeight: '700',
     marginBottom: '1rem',
-    fontWeight: '600',
+    color: '#fbbf24',
   },
-  footerText: {
+  footerList: {
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '0.75rem',
+    color: 'rgba(255,255,255,0.8)',
     fontSize: '0.9rem',
-    lineHeight: '1.8',
-    color: '#bdc3c7',
+  },
+  footerBottom: {
+    borderTop: '1px solid rgba(255,255,255,0.1)',
+    padding: '1.5rem 2rem',
+    textAlign: 'center',
+    fontSize: '0.85rem',
+    color: 'rgba(255,255,255,0.6)',
   },
 };
 

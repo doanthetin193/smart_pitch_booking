@@ -292,7 +292,8 @@ const styles = {
   container: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '20px',
+    padding: '25px 20px',
+    marginTop: '60px',
   },
   headerRow: {
     display: 'flex',
@@ -304,8 +305,8 @@ const styles = {
   },
   title: {
     fontSize: '28px',
-    fontWeight: 'bold',
-    color: '#1f2937',
+    fontWeight: '700',
+    color: '#1a5f2a',
     margin: 0,
   },
   exportBtns: {
@@ -313,36 +314,41 @@ const styles = {
     gap: '10px',
   },
   exportBtn: {
-    padding: '10px 20px',
+    padding: '12px 24px',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '10px',
     cursor: 'pointer',
-    fontWeight: '600',
+    fontWeight: '700',
     fontSize: '14px',
-    backgroundColor: '#10b981',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
     color: 'white',
-    transition: 'all 0.2s',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(26, 95, 42, 0.3)',
   },
   exportBtnPdf: {
-    backgroundColor: '#ef4444',
+    background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)',
+    boxShadow: '0 4px 15px rgba(220, 38, 38, 0.3)',
   },
   loading: {
     textAlign: 'center',
     padding: '50px',
     fontSize: '18px',
-    color: '#6b7280',
+    color: '#1a5f2a',
   },
   error: {
     textAlign: 'center',
     padding: '50px',
-    color: '#ef4444',
-    backgroundColor: '#fef2f2',
-    borderRadius: '8px',
+    color: '#dc2626',
+    backgroundColor: '#fee2e2',
+    borderRadius: '12px',
+    border: '1px solid #fecaca',
   },
   empty: {
     textAlign: 'center',
     padding: '50px',
-    color: '#6b7280',
+    color: '#1a5f2a',
+    backgroundColor: '#f0fdf4',
+    borderRadius: '12px',
   },
 
   // Summary Cards
@@ -355,40 +361,40 @@ const styles = {
   summaryCard: {
     display: 'flex',
     alignItems: 'center',
-    padding: '20px',
-    borderRadius: '12px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    padding: '22px',
+    borderRadius: '16px',
+    boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
   },
   primaryCard: {
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
     color: 'white',
   },
   successCard: {
-    background: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
+    background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
     color: 'white',
   },
   infoCard: {
-    background: 'linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%)',
+    background: 'linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%)',
     color: 'white',
   },
   warningCard: {
-    background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    background: 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)',
     color: 'white',
   },
   cardIcon: {
-    fontSize: '36px',
+    fontSize: '38px',
     marginRight: '15px',
   },
   cardContent: {
     flex: 1,
   },
   cardValue: {
-    fontSize: '24px',
-    fontWeight: 'bold',
+    fontSize: '26px',
+    fontWeight: '700',
   },
   cardLabel: {
     fontSize: '14px',
-    opacity: 0.9,
+    opacity: 0.95,
   },
 
   // Time Stats
@@ -401,14 +407,15 @@ const styles = {
   timeCard: {
     backgroundColor: 'white',
     padding: '25px',
-    borderRadius: '12px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    borderRadius: '16px',
+    boxShadow: '0 10px 40px rgba(26, 95, 42, 0.1)',
+    border: '1px solid rgba(26, 95, 42, 0.1)',
   },
   timeCardTitle: {
     fontSize: '18px',
-    fontWeight: '600',
+    fontWeight: '700',
     marginBottom: '15px',
-    color: '#374151',
+    color: '#1a5f2a',
   },
   timeStats: {
     display: 'flex',
@@ -420,27 +427,28 @@ const styles = {
   timeStatValue: {
     display: 'block',
     fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#3b82f6',
+    fontWeight: '700',
+    color: '#1a5f2a',
   },
   timeStatLabel: {
     fontSize: '14px',
-    color: '#6b7280',
+    color: '#666',
   },
 
   // Sections
   section: {
     backgroundColor: 'white',
-    padding: '25px',
-    borderRadius: '12px',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-    marginBottom: '20px',
+    padding: '28px',
+    borderRadius: '16px',
+    boxShadow: '0 10px 40px rgba(26, 95, 42, 0.1)',
+    marginBottom: '24px',
+    border: '1px solid rgba(26, 95, 42, 0.1)',
   },
   sectionTitle: {
     fontSize: '20px',
-    fontWeight: '600',
+    fontWeight: '700',
     marginBottom: '20px',
-    color: '#1f2937',
+    color: '#1a5f2a',
   },
 
   // Status Grid
@@ -452,10 +460,11 @@ const styles = {
   statusItem: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: '#f9fafb',
-    padding: '12px 20px',
-    borderRadius: '8px',
+    backgroundColor: '#f0fdf4',
+    padding: '14px 22px',
+    borderRadius: '12px',
     minWidth: '150px',
+    border: '1px solid #86efac',
   },
   statusDot: {
     width: '12px',
@@ -466,12 +475,13 @@ const styles = {
   statusLabel: {
     flex: 1,
     fontSize: '14px',
-    color: '#374151',
+    color: '#1a5f2a',
+    fontWeight: '500',
   },
   statusValue: {
-    fontWeight: 'bold',
+    fontWeight: '700',
     fontSize: '16px',
-    color: '#1f2937',
+    color: '#1a5f2a',
   },
 
   // Table
@@ -484,32 +494,33 @@ const styles = {
   },
   th: {
     textAlign: 'left',
-    padding: '12px',
-    borderBottom: '2px solid #e5e7eb',
-    color: '#6b7280',
-    fontWeight: '600',
+    padding: '14px 12px',
+    borderBottom: '2px solid #86efac',
+    color: '#1a5f2a',
+    fontWeight: '700',
     fontSize: '14px',
+    backgroundColor: '#f0fdf4',
   },
   td: {
-    padding: '12px',
-    borderBottom: '1px solid #e5e7eb',
-    color: '#374151',
+    padding: '14px 12px',
+    borderBottom: '1px solid #e8f5e9',
+    color: '#333',
   },
   rankBadge: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '28px',
-    height: '28px',
+    width: '30px',
+    height: '30px',
     borderRadius: '50%',
-    backgroundColor: '#3b82f6',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: '700',
     fontSize: '14px',
   },
   rating: {
     color: '#f59e0b',
-    fontWeight: '500',
+    fontWeight: '600',
   },
   noRating: {
     color: '#9ca3af',
@@ -538,18 +549,19 @@ const styles = {
   },
   barValueLabel: {
     fontSize: '10px',
-    color: '#6b7280',
+    color: '#1a5f2a',
     marginBottom: '5px',
     textAlign: 'center',
     minHeight: '30px',
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'center',
+    fontWeight: '500',
   },
   bar: {
     width: '100%',
     maxWidth: '60px',
-    borderRadius: '4px 4px 0 0',
+    borderRadius: '6px 6px 0 0',
     display: 'flex',
     alignItems: 'flex-end',
     justifyContent: 'center',
@@ -561,13 +573,14 @@ const styles = {
     bottom: '5px',
     color: 'white',
     fontSize: '12px',
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   barLabel: {
     fontSize: '11px',
-    color: '#6b7280',
+    color: '#1a5f2a',
     marginTop: '8px',
     textAlign: 'center',
+    fontWeight: '500',
   },
 };
 

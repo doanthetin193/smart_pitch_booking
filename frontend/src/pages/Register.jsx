@@ -42,9 +42,10 @@ const Register = () => {
   return (
     <div style={styles.container}>
       <div style={styles.formCard}>
-        <h2 style={styles.title}>Đăng Ký Tài Khoản</h2>
+        <h2 style={styles.title}>⚽ Tạo Tài Khoản</h2>
+        <p style={styles.subtitle}>Tham gia cộng đồng đặt sân ngay hôm nay!</p>
         
-        {error && <div style={styles.error}>{error}</div>}
+        {error && <div style={styles.error}>⚠️ {error}</div>}
         
         <form onSubmit={handleSubmit} style={styles.form}>
           <div style={styles.formGroup}>
@@ -139,34 +140,45 @@ const Register = () => {
 
 const styles = {
   container: {
-    minHeight: 'calc(100vh - 200px)',
+    minHeight: 'calc(100vh - 60px)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '2rem',
-    backgroundColor: '#ecf0f1',
+    background: 'linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%)',
+    marginTop: '60px',
   },
   formCard: {
     backgroundColor: 'white',
     padding: '2.5rem',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    borderRadius: '20px',
+    boxShadow: '0 20px 60px rgba(26, 95, 42, 0.15)',
     width: '100%',
     maxWidth: '500px',
+    border: '1px solid rgba(26, 95, 42, 0.1)',
   },
   title: {
     fontSize: '2rem',
-    color: '#2c3e50',
-    marginBottom: '1.5rem',
+    color: '#1a5f2a',
+    marginBottom: '0.5rem',
     textAlign: 'center',
+    fontWeight: '700',
+  },
+  subtitle: {
+    fontSize: '0.95rem',
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: '2rem',
   },
   error: {
-    backgroundColor: '#e74c3c',
-    color: 'white',
-    padding: '0.75rem',
-    borderRadius: '4px',
-    marginBottom: '1rem',
+    backgroundColor: '#fee2e2',
+    color: '#dc2626',
+    padding: '1rem',
+    borderRadius: '10px',
+    marginBottom: '1.5rem',
     textAlign: 'center',
+    border: '1px solid #fecaca',
+    fontSize: '0.9rem',
   },
   form: {
     display: 'flex',
@@ -179,35 +191,41 @@ const styles = {
   },
   label: {
     marginBottom: '0.5rem',
-    color: '#2c3e50',
-    fontWeight: '500',
+    color: '#1a5f2a',
+    fontWeight: '600',
+    fontSize: '0.9rem',
   },
   input: {
-    padding: '0.75rem',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
+    padding: '0.875rem 1rem',
+    border: '2px solid #e8f5e9',
+    borderRadius: '10px',
     fontSize: '1rem',
+    transition: 'all 0.3s ease',
+    outline: 'none',
   },
   submitBtn: {
-    backgroundColor: '#27ae60',
+    background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 100%)',
     color: 'white',
-    padding: '0.875rem',
+    padding: '1rem',
     border: 'none',
-    borderRadius: '4px',
-    fontSize: '1rem',
-    fontWeight: '600',
+    borderRadius: '10px',
+    fontSize: '1.05rem',
+    fontWeight: '700',
     cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    boxShadow: '0 4px 15px rgba(26, 95, 42, 0.3)',
     marginTop: '0.5rem',
   },
   footer: {
-    marginTop: '1.5rem',
+    marginTop: '2rem',
     textAlign: 'center',
-    color: '#7f8c8d',
+    color: '#666',
+    fontSize: '0.95rem',
   },
   link: {
-    color: '#3498db',
+    color: '#1a5f2a',
     textDecoration: 'none',
-    fontWeight: '600',
+    fontWeight: '700',
   },
 };
 
