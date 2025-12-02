@@ -122,4 +122,25 @@ export const adminAPI = {
   deleteUser: (userId) => api.delete(`/admin/users/${userId}`),
 };
 
+// User APIs (Profile)
+export const userAPI = {
+  // Lấy thông tin profile
+  getProfile: () => api.get('/user/profile'),
+  
+  // Cập nhật profile
+  updateProfile: (data) => api.put('/user/profile', data),
+  
+  // Đổi mật khẩu
+  changePassword: (data) => api.put('/user/change-password', data),
+};
+
+// Report APIs
+export const reportAPI = {
+  // Xuất Excel cho Owner
+  exportExcel: () => api.get('/reports/owner/excel', { responseType: 'blob' }),
+  
+  // Xuất PDF cho Owner
+  exportPdf: () => api.get('/reports/owner/pdf', { responseType: 'blob' }),
+};
+
 export default api;

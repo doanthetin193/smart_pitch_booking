@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { statisticsAPI } from '../services/api';
+import { statisticsAPI, reportAPI } from '../services/api';
 
 function OwnerStatistics() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
     loadStatistics();
@@ -28,6 +29,44 @@ function OwnerStatistics() {
       style: 'currency',
       currency: 'VND'
     }).format(amount || 0);
+  };
+
+  const handleExportExcel = async () => {
+    try {
+      setExporting(true);
+      const response = await reportAPI.exportExcel();
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `bao-cao-doanh-thu-${new Date().toISOString().split('T')[0]}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      alert('Xuất Excel thất bại: ' + (err.response?.data?.message || err.message));
+    } finally {
+      setExporting(false);
+    }
+  };
+
+  const handleExportPdf = async () => {
+    try {
+      setExporting(true);
+      const response = await reportAPI.exportPdf();
+      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `bao-cao-doanh-thu-${new Date().toISOString().split('T')[0]}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      alert('Xuất PDF thất bại: ' + (err.response?.data?.message || err.message));
+    } finally {
+      setExporting(false);
+    }
   };
 
   if (loading) {
@@ -56,7 +95,25 @@ function OwnerStatistics() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>📊 Thống kê doanh thu</h1>
+      <div style={styles.headerRow}>
+        <h1 style={styles.title}>📊 Thống kê doanh thu</h1>
+        <div style={styles.exportBtns}>
+          <button 
+            style={styles.exportBtn} 
+            onClick={handleExportExcel}
+            disabled={exporting}
+          >
+            📥 Xuất Excel
+          </button>
+          <button 
+            style={{ ...styles.exportBtn, ...styles.exportBtnPdf }} 
+            onClick={handleExportPdf}
+            disabled={exporting}
+          >
+            📄 Xuất PDF
+          </button>
+        </div>
+      </div>
 
       {/* Summary Cards */}
       <div style={styles.summaryGrid}>
@@ -237,11 +294,37 @@ const styles = {
     margin: '0 auto',
     padding: '20px',
   },
+  headerRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '30px',
+    flexWrap: 'wrap',
+    gap: '15px',
+  },
   title: {
     fontSize: '28px',
     fontWeight: 'bold',
-    marginBottom: '30px',
     color: '#1f2937',
+    margin: 0,
+  },
+  exportBtns: {
+    display: 'flex',
+    gap: '10px',
+  },
+  exportBtn: {
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: '600',
+    fontSize: '14px',
+    backgroundColor: '#10b981',
+    color: 'white',
+    transition: 'all 0.2s',
+  },
+  exportBtnPdf: {
+    backgroundColor: '#ef4444',
   },
   loading: {
     textAlign: 'center',

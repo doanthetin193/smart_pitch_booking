@@ -38,7 +38,7 @@ const Navbar = () => {
                   <Link to="/admin/users" style={styles.link}>Quản lý Users</Link>
                 </>
               )}
-              <span style={styles.username}>👤 {user.fullName}</span>
+              <Link to="/profile" style={styles.profileLink}>👤 {user.fullName}</Link>
               <button onClick={handleLogout} style={styles.logoutBtn}>
                 Đăng xuất
               </button>
@@ -100,6 +100,15 @@ const styles = {
   username: {
     color: '#333',
     fontWeight: '500',
+  },
+  profileLink: {
+    color: '#333',
+    textDecoration: 'none',
+    fontWeight: '500',
+    padding: '0.5rem 0.75rem',
+    borderRadius: '4px',
+    transition: 'background-color 0.3s',
+    cursor: 'pointer',
   },
   logoutBtn: {
     backgroundColor: '#e74c3c',

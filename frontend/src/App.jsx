@@ -11,6 +11,7 @@ import OwnerBookings from './pages/OwnerBookings';
 import OwnerStatistics from './pages/OwnerStatistics';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
+import Profile from './pages/Profile';
 
 // Protected Route component
 const ProtectedRoute = ({ children, requiredRole, excludeRoles = [] }) => {
@@ -103,6 +104,15 @@ const AppContent = () => {
             element={
               <ProtectedRoute requiredRole="ADMIN">
                 <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+          
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />
