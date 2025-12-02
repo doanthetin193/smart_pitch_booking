@@ -68,40 +68,50 @@ const Home = () => {
       {/* Hero Banner */}
       <div style={styles.hero}>
         <div style={styles.heroOverlay}></div>
-        <div style={styles.heroContent}>
-          <div style={styles.heroBadge}>⚽ Nền tảng đặt sân #1 Việt Nam</div>
-          <h1 style={styles.heroTitle}>
-            Đặt Sân Bóng <span style={styles.heroHighlight}>Chuyên Nghiệp</span>
-          </h1>
-          <p style={styles.heroSubtitle}>
-            Tìm kiếm, so sánh và đặt sân bóng dễ dàng chỉ trong vài giây.
-            <br />Hơn 1000+ sân bóng trên toàn quốc đang chờ bạn!
-          </p>
-          <div style={styles.heroButtons}>
-            <button style={styles.primaryBtn} onClick={() => {
-              document.getElementById('pitches-section')?.scrollIntoView({ behavior: 'smooth' });
-            }}>
-              🔍 Tìm Sân Ngay
-            </button>
-            <button style={styles.secondaryBtn}>
-              📖 Hướng Dẫn
-            </button>
+        <div style={styles.heroContainer}>
+          <div style={styles.heroContent}>
+            <div style={styles.heroBadge}>⚽ Nền tảng đặt sân #1 Việt Nam</div>
+            <h1 style={styles.heroTitle}>
+              Đặt Sân Bóng <span style={styles.heroHighlight}>Chuyên Nghiệp</span>
+            </h1>
+            <p style={styles.heroSubtitle}>
+              Tìm kiếm, so sánh và đặt sân bóng dễ dàng chỉ trong vài giây.
+              <br />Hơn 1000+ sân bóng trên toàn quốc đang chờ bạn!
+            </p>
+            <div style={styles.heroButtons}>
+              <button style={styles.primaryBtn} onClick={() => {
+                document.getElementById('pitches-section')?.scrollIntoView({ behavior: 'smooth' });
+              }}>
+                🔍 Tìm Sân Ngay
+              </button>
+              <button style={styles.secondaryBtn}>
+                📖 Hướng Dẫn
+              </button>
+            </div>
+            <div style={styles.heroStats}>
+              <div style={styles.statItem}>
+                <span style={styles.statNumber}>1000+</span>
+                <span style={styles.statLabel}>Sân bóng</span>
+              </div>
+              <div style={styles.statDivider}></div>
+              <div style={styles.statItem}>
+                <span style={styles.statNumber}>50K+</span>
+                <span style={styles.statLabel}>Lượt đặt</span>
+              </div>
+              <div style={styles.statDivider}></div>
+              <div style={styles.statItem}>
+                <span style={styles.statNumber}>99%</span>
+                <span style={styles.statLabel}>Hài lòng</span>
+              </div>
+            </div>
           </div>
-          <div style={styles.heroStats}>
-            <div style={styles.statItem}>
-              <span style={styles.statNumber}>1000+</span>
-              <span style={styles.statLabel}>Sân bóng</span>
-            </div>
-            <div style={styles.statDivider}></div>
-            <div style={styles.statItem}>
-              <span style={styles.statNumber}>50K+</span>
-              <span style={styles.statLabel}>Lượt đặt</span>
-            </div>
-            <div style={styles.statDivider}></div>
-            <div style={styles.statItem}>
-              <span style={styles.statNumber}>99%</span>
-              <span style={styles.statLabel}>Hài lòng</span>
-            </div>
+          <div style={styles.heroImageWrapper}>
+            <img 
+              src="/rwc.png" 
+              alt="Football Champion" 
+              style={styles.heroImage}
+            />
+            <div style={styles.heroImageGlow}></div>
           </div>
         </div>
       </div>
@@ -260,8 +270,7 @@ const styles = {
   // Hero Section - Football Field Theme
   hero: {
     background: 'linear-gradient(135deg, #1a5f2a 0%, #2d8a42 50%, #1a5f2a 100%)',
-    padding: '6rem 2rem',
-    textAlign: 'center',
+    padding: '4rem 2rem',
     marginTop: '60px',
     position: 'relative',
     overflow: 'hidden',
@@ -275,11 +284,44 @@ const styles = {
     background: 'repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.03) 40px, rgba(255,255,255,0.03) 80px)',
     pointerEvents: 'none',
   },
-  heroContent: {
-    maxWidth: '900px',
+  heroContainer: {
+    maxWidth: '1200px',
     margin: '0 auto',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '3rem',
     position: 'relative',
     zIndex: 1,
+    flexWrap: 'wrap',
+  },
+  heroContent: {
+    flex: '1',
+    minWidth: '300px',
+    textAlign: 'left',
+  },
+  heroImageWrapper: {
+    flex: '0 0 auto',
+    position: 'relative',
+  },
+  heroImage: {
+    width: '350px',
+    height: '350px',
+    objectFit: 'cover',
+    borderRadius: '20px',
+    border: '4px solid rgba(255,255,255,0.3)',
+    boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
+    transition: 'transform 0.3s ease',
+  },
+  heroImageGlow: {
+    position: 'absolute',
+    top: '-10px',
+    left: '-10px',
+    right: '-10px',
+    bottom: '-10px',
+    background: 'radial-gradient(circle, rgba(251,191,36,0.3) 0%, transparent 70%)',
+    borderRadius: '30px',
+    zIndex: -1,
   },
   heroBadge: {
     display: 'inline-block',
@@ -314,9 +356,9 @@ const styles = {
   heroButtons: {
     display: 'flex',
     gap: '1rem',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexWrap: 'wrap',
-    marginBottom: '3rem',
+    marginBottom: '2rem',
   },
   primaryBtn: {
     background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)',
@@ -343,7 +385,7 @@ const styles = {
   },
   heroStats: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     gap: '2rem',
     flexWrap: 'wrap',
