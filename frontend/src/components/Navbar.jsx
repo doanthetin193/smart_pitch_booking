@@ -15,8 +15,8 @@ const Navbar = () => {
       <div style={styles.container}>
         <Link to="/" style={styles.logo}>
           <span style={styles.logoIcon}>⚽</span>
-          <span style={styles.logoText}>SânBóng</span>
-          <span style={styles.logoPro}>Pro</span>
+          <span style={styles.logoText}>ĐặtSân</span>
+          <span style={styles.logoPro}>247</span>
         </Link>
         
         <div style={styles.menu}>

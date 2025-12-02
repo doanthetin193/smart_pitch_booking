@@ -244,6 +244,7 @@ public class BookingService {
     
     /**
      * Hủy đơn đặt sân (USER)
+     * Chỉ cho phép hủy đơn ở trạng thái PENDING
      */
     @Transactional
     public BookingResponse cancelBooking(Long bookingId) {
@@ -257,10 +258,9 @@ public class BookingService {
             throw new RuntimeException("Bạn không có quyền hủy đơn này");
         }
         
-        // Chỉ cho phép hủy khi đơn đang PENDING hoặc CONFIRMED
-        if (booking.getStatus() != BookingStatus.PENDING && 
-            booking.getStatus() != BookingStatus.CONFIRMED) {
-            throw new RuntimeException("Không thể hủy đơn ở trạng thái này");
+        // Chỉ cho phép hủy khi đơn đang PENDING (chưa được xác nhận)
+        if (booking.getStatus() != BookingStatus.PENDING) {
+            throw new RuntimeException("Không thể hủy đơn đã được xác nhận hoặc đã hoàn thành");
         }
         
         // Kiểm tra không được hủy nếu ngày đặt đã qua

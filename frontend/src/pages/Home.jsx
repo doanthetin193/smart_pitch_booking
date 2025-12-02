@@ -218,7 +218,7 @@ const Home = () => {
       <footer style={styles.footer}>
         <div style={styles.footerTop}>
           <div style={styles.footerBrand}>
-            <h2 style={styles.footerLogo}>⚽ SânBóng<span style={styles.footerLogoAccent}>Pro</span></h2>
+            <h2 style={styles.footerLogo}>⚽ ĐặtSân<span style={styles.footerLogoAccent}>247</span></h2>
             <p style={styles.footerTagline}>Nền tảng đặt sân bóng hàng đầu Việt Nam</p>
           </div>
           <div style={styles.footerLinks}>
@@ -249,7 +249,7 @@ const Home = () => {
           </div>
         </div>
         <div style={styles.footerBottom}>
-          <p>© 2025 SânBóngPro. All rights reserved.</p>
+          <p>© 2025 ĐặtSân247. All rights reserved.</p>
         </div>
       </footer>
     </div>
