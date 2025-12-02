@@ -1,337 +1,345 @@
-# ⚽ Hệ Thống Đặt Sân Bóng Đá - Sprint 1
+# ⚽ ĐặtSân247 - Hệ Thống Đặt Sân Bóng Đá Thông Minh
 
-Ứng dụng web đặt sân bóng đá trực tuyến với Spring Boot + React + MySQL
-
-## 📋 Chức năng đã hoàn thành (Sprint 1)
-
-### 🔐 Authentication (JWT)
-- Đăng ký tài khoản với 3 vai trò: USER, OWNER, ADMIN
-- Đăng nhập và nhận JWT token (thời hạn 24h)
-- Phân quyền truy cập theo role
-
-### ⚽ CRUD Sân bóng
-- **USER**: Xem danh sách sân, xem chi tiết
-- **OWNER**: Quản lý sân của mình (Thêm/Sửa/Xóa), xem trạng thái duyệt
-- **ADMIN**: Xem tất cả sân, duyệt sân mới, xóa sân bất kỳ
-
-## �️ Công nghệ sử dụng
-
-**Backend:**
-- Spring Boot 3.4.11
-- Spring Security + JWT
-- Spring Data JPA + Hibernate
-- MySQL 8.0
-- Maven
-
-**Frontend:**
-- React 19.2.0
-- Vite 7.2.2
-- React Router DOM v6
-- Axios
-
-## 🚀 Hướng dẫn triển khai
-
-Xem file [TRIEN_KHAI_CHO_THANH_VIEN.md](TRIEN_KHAI_CHO_THANH_VIEN.md) để biết chi tiết cách cài đặt và chạy project.
-
-## 👥 Tài khoản test
-
-Sau khi chạy backend lần đầu, hệ thống tự động tạo 3 tài khoản:
-
-| Username | Password | Role | Mô tả |
-|----------|----------|------|-------|
-| admin | admin123 | ADMIN | Quản trị hệ thống |
-| owner1 | 123456 | OWNER | Chủ sân (có 6 sân mẫu) |
-| user1 | 123456 | USER | Người dùng thường |
-
-## 📂 Cấu trúc project
-
-```
-smartpitchbooking/
-├── src/main/java/com/dung/smartpitchbooking/
-│   ├── entity/          # User, Pitch
-│   ├── repository/      # JPA Repositories
-│   ├── service/         # Business Logic
-│   ├── controller/      # REST API Endpoints
-│   ├── security/        # JWT, Security Config
-│   ├── dto/             # Request/Response DTOs
-│   └── config/          # Data Initializer, Exception Handler
-├── frontend/
-│   ├── src/
-│   │   ├── components/  # Navbar
-│   │   ├── pages/       # Home, Login, Register, PitchDetail, MyPitches, AdminDashboard
-│   │   ├── contexts/    # AuthContext
-│   │   └── services/    # API Service (Axios)
-│   └── package.json
-└── pom.xml
-```
-
-## 📝 API Endpoints
-
-### Authentication
-- `POST /api/auth/register` - Đăng ký
-- `POST /api/auth/login` - Đăng nhập
-
-### Pitches
-- `GET /api/pitches` - Lấy tất cả sân (public)
-- `GET /api/pitches/{id}` - Chi tiết sân
-- `POST /api/pitches` - Tạo sân mới (OWNER)
-- `PUT /api/pitches/{id}` - Cập nhật sân (OWNER)
-- `DELETE /api/pitches/{id}` - Xóa sân (OWNER/ADMIN)
-- `GET /api/pitches/my-pitches` - Sân của tôi (OWNER)
-- `PATCH /api/pitches/{id}/approve` - Duyệt sân (ADMIN)
-
-## 🎯 Kết quả đạt được
-
-✅ Hoàn thành 100% yêu cầu Sprint 1  
-✅ Backend: 20 Java classes, 12+ API endpoints  
-✅ Frontend: 9 React components/pages  
-✅ Database: 2 tables với quan hệ FK  
-✅ Giao diện responsive, thân thiện người dùng  
-✅ Phân quyền rõ ràng theo role  
-
-## 📧 Liên hệ
-
-- **Sinh viên**: Nguyễn Văn Dũng
-- **MSSV**: 4551190009
-- **Email**: nguyenvandung6000@gmail.com
-
-## 🛠️ Công nghệ sử dụng
-
-- **Backend Framework:** Spring Boot 3.4.11
-- **Security:** Spring Security + JWT
-- **Database:** MySQL
-- **ORM:** Spring Data JPA (Hibernate)
-- **Build Tool:** Maven
-- **Java Version:** 17
-
-## 📦 Cài đặt
-
-### 1. Yêu cầu hệ thống
-- Java 17+
-- MySQL 8.0+
-- Maven 3.6+
-
-### 2. Cài đặt MySQL
-
-Tạo database:
-```sql
-CREATE DATABASE smartpitchbooking;
-```
-
-### 3. Cấu hình Database
-
-Mở file `src/main/resources/application.properties` và cập nhật thông tin database:
-
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/smartpitchbooking?createDatabaseIfNotExist=true
-spring.datasource.username=root
-spring.datasource.password=your_password
-```
-
-### 4. Cài đặt dependencies
-
-```bash
-mvnw clean install
-```
-
-## 🚀 Chạy ứng dụng
-
-### Cách 1: Sử dụng Maven Wrapper (Windows)
-```bash
-mvnw.cmd spring-boot:run
-```
-
-### Cách 2: Sử dụng Maven (nếu đã cài)
-```bash
-mvn spring-boot:run
-```
-
-### Cách 3: Chạy file JAR
-```bash
-mvnw.cmd clean package
-java -jar target/smartpitchbooking-0.0.1-SNAPSHOT.jar
-```
-
-Ứng dụng sẽ chạy tại: `http://localhost:8080`
-
-## 📊 Dữ liệu mẫu
-
-Khi khởi động lần đầu, hệ thống tự động tạo:
-
-### Tài khoản
-- **Admin:** 
-  - Username: `admin`
-  - Password: `admin123`
+<div align="center">
+  <img src="frontend/public/rwc.png" alt="ĐặtSân247 Logo" width="200"/>
+  <br/><br/>
+  <strong>🏆 Nền tảng đặt sân bóng hàng đầu Việt Nam</strong>
+  <br/>
+  <em>Đặt sân dễ dàng • Quản lý thông minh • Hỗ trợ 24/7</em>
+  <br/><br/>
   
-- **Chủ sân:**
-  - Username: `owner1`
-  - Password: `123456`
-  
-- **User thường:**
-  - Username: `user1`
-  - Password: `123456`
-
-### Sân bóng mẫu
-- Sân bóng Thành Công (Sân 5 người)
-- Sân bóng Minh Khai (Sân 7 người)
-
-## 📖 API Documentation
-
-Xem chi tiết tại: [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
-
-### Endpoints chính:
-
-**Authentication:**
-- `POST /api/auth/register` - Đăng ký
-- `POST /api/auth/login` - Đăng nhập
-
-**Pitches:**
-- `GET /api/pitches` - Xem tất cả sân (Public)
-- `GET /api/pitches/{id}` - Xem chi tiết sân (Public)
-- `POST /api/pitches` - Tạo sân mới (OWNER/ADMIN)
-- `PUT /api/pitches/{id}` - Cập nhật sân (OWNER/ADMIN)
-- `DELETE /api/pitches/{id}` - Xóa sân (OWNER/ADMIN)
-- `GET /api/pitches/my-pitches` - Xem sân của tôi (OWNER/ADMIN)
-- `GET /api/pitches/admin/all` - Xem tất cả sân (ADMIN)
-- `PUT /api/pitches/admin/{id}/approve` - Duyệt sân (ADMIN)
-
-## 🧪 Test API
-
-### 1. Đăng ký tài khoản mới
-
-```bash
-POST http://localhost:8080/api/auth/register
-Content-Type: application/json
-
-{
-  "username": "testuser",
-  "email": "test@gmail.com",
-  "password": "123456",
-  "fullName": "Test User",
-  "phoneNumber": "0123456789",
-  "role": "OWNER"
-}
-```
-
-### 2. Đăng nhập
-
-```bash
-POST http://localhost:8080/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "owner1",
-  "password": "123456"
-}
-```
-
-Response sẽ trả về token JWT:
-```json
-{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "type": "Bearer",
-  "id": 2,
-  "username": "owner1",
-  "email": "owner1@gmail.com",
-  "fullName": "Nguyễn Văn A",
-  "role": "OWNER"
-}
-```
-
-### 3. Tạo sân mới (cần token)
-
-```bash
-POST http://localhost:8080/api/pitches
-Authorization: Bearer {your_token}
-Content-Type: application/json
-
-{
-  "name": "Sân bóng Test",
-  "description": "Mô tả sân",
-  "address": "123 ABC",
-  "city": "Hồ Chí Minh",
-  "district": "Quận 1",
-  "type": "PITCH_5",
-  "pricePerHour": 200000,
-  "openTime": "06:00",
-  "closeTime": "22:00"
-}
-```
-
-## 📁 Cấu trúc project
-
-```
-src/main/java/com/dung/smartpitchbooking/
-├── config/
-│   └── DataInitializer.java          # Khởi tạo dữ liệu mẫu
-├── controller/
-│   ├── AuthController.java           # API Authentication
-│   └── PitchController.java          # API CRUD sân bóng
-├── dto/
-│   ├── RegisterRequest.java
-│   ├── LoginRequest.java
-│   ├── AuthResponse.java
-│   ├── PitchRequest.java
-│   └── PitchResponse.java
-├── entity/
-│   ├── User.java                     # Entity User
-│   └── Pitch.java                    # Entity Pitch
-├── exception/
-│   └── GlobalExceptionHandler.java   # Xử lý lỗi toàn cục
-├── repository/
-│   ├── UserRepository.java
-│   └── PitchRepository.java
-├── security/
-│   ├── JwtTokenProvider.java         # Tạo và validate JWT
-│   ├── JwtAuthenticationFilter.java  # Filter JWT
-│   ├── CustomUserDetailsService.java
-│   └── SecurityConfig.java           # Cấu hình Spring Security
-├── service/
-│   ├── AuthService.java
-│   └── PitchService.java
-└── SmartpitchbookingApplication.java
-```
-
-## 🔐 Phân quyền
-
-- **PUBLIC:** Xem danh sách sân, chi tiết sân
-- **USER:** Đăng nhập, xem sân
-- **OWNER:** Tạo/sửa/xóa sân của mình
-- **ADMIN:** Quản lý tất cả, duyệt sân mới
-
-## 🎯 Các tính năng Sprint 1
-
-✅ Đăng ký tài khoản (USER, OWNER, ADMIN)  
-✅ Đăng nhập với JWT  
-✅ Tạo sân mới (OWNER/ADMIN)  
-✅ Xem danh sách sân (Public)  
-✅ Xem chi tiết sân (Public)  
-✅ Sửa sân (OWNER/ADMIN - chỉ sân của mình)  
-✅ Xóa sân (OWNER/ADMIN - chỉ sân của mình)  
-✅ Duyệt sân (ADMIN)  
-✅ Xem sân của tôi (OWNER)  
-
-## 📝 TODO (Sprint tiếp theo)
-
-- Tìm kiếm và lọc sân theo địa điểm, loại sân
-- Xem khung giờ trống
-- Đặt sân
-- Quản lý lịch đặt
-- Đánh giá sân
-- Thanh toán
-- Thông báo
-
-## 👨‍💻 Sinh viên thực hiện
-
-- **Họ tên:** Nguyễn Văn Dũng
-- **MSSV:** 4551190009
-- **Lớp:** Kỹ Thuật Phần Mềm K45
-- **Email:** nguyenvandung6000@gmail.com
-
-## 🙏 Giảng viên hướng dẫn
-
-- **Phạm Văn Việt**
+  ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.11-brightgreen)
+  ![React](https://img.shields.io/badge/React-19.2.0-blue)
+  ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange)
+  ![Java](https://img.shields.io/badge/Java-17-red)
+</div>
 
 ---
 
-**Lưu ý:** Đây là phiên bản Sprint 1, chỉ bao gồm Authentication và CRUD Sân bóng theo yêu cầu giảng viên.
+## 📋 Giới thiệu
+
+**ĐặtSân247** là ứng dụng web đặt sân bóng đá trực tuyến, kết nối người chơi bóng với chủ sân một cách nhanh chóng và tiện lợi. Hệ thống hỗ trợ 3 vai trò: Người dùng (USER), Chủ sân (OWNER) và Quản trị viên (ADMIN).
+
+### ✨ Điểm nổi bật
+- 🎯 **Đặt sân nhanh chóng** - Chỉ 3 bước đơn giản
+- 💰 **Minh bạch giá cả** - Hiển thị rõ ràng, không phí ẩn
+- 📊 **Thống kê chi tiết** - Báo cáo doanh thu trực quan
+- 🔒 **Bảo mật cao** - JWT Authentication
+- 📱 **Responsive** - Tương thích mọi thiết bị
+
+---
+
+## 🎯 Tính năng chính
+
+### 🔐 Module 1: Xác thực & Phân quyền
+| Tính năng | Mô tả |
+|-----------|-------|
+| Đăng ký tài khoản | 3 vai trò: USER, OWNER, ADMIN |
+| Đăng nhập | JWT Token (24 giờ) |
+| Đổi mật khẩu | Xác thực mật khẩu cũ |
+| Cập nhật Profile | Họ tên, SĐT, địa chỉ |
+| Khóa tài khoản | Thông báo khi bị khóa |
+
+### ⚽ Module 2: Quản lý Sân bóng
+| Vai trò | Quyền hạn |
+|---------|-----------|
+| USER | Xem danh sách sân đã duyệt, xem chi tiết |
+| OWNER | Thêm/Sửa/Xóa sân, xem trạng thái duyệt |
+| ADMIN | Xem tất cả, duyệt sân mới, xóa sân |
+
+**Thông tin sân:**
+- Tên, địa chỉ (Thành phố/Quận/Chi tiết)
+- Loại sân: Sân 5, Sân 7, Sân 11
+- Giá thuê/giờ, giờ hoạt động
+- Mô tả, hình ảnh
+
+### 🔍 Module 3: Tìm kiếm & Lọc
+- 🔤 Tìm theo từ khóa (tên, địa chỉ)
+- 🏙️ Lọc theo Thành phố/Quận
+- ⚽ Lọc theo loại sân (5/7/11)
+- 💵 Lọc theo khoảng giá
+- 🔗 Kết hợp nhiều điều kiện
+
+### 📅 Module 4: Đặt sân
+| Tính năng | Mô tả |
+|-----------|-------|
+| Xem khung giờ trống | Slot còn trống trong ngày |
+| Đặt sân | Chọn ngày, giờ bắt đầu/kết thúc |
+| Xem lịch đặt | USER xem đơn của mình |
+| Hủy đặt | Chỉ khi trạng thái PENDING |
+| Xác nhận/Từ chối | OWNER duyệt đơn |
+
+**Trạng thái đơn:**
+```
+PENDING → CONFIRMED → COMPLETED
+    ↓         ↓
+CANCELLED  REJECTED
+```
+
+**Auto-complete:** Scheduler tự động chuyển CONFIRMED → COMPLETED khi hết giờ
+
+### ⭐ Module 5: Đánh giá & Bình luận
+- ⭐ Điểm đánh giá: 1-5 sao
+- 💬 Viết bình luận
+- 📊 Tổng hợp điểm trung bình
+- 🗑️ Xóa đánh giá (USER/ADMIN)
+
+### 📊 Module 6: Thống kê doanh thu
+
+**OWNER:**
+- 💰 Tổng doanh thu (tháng/tổng)
+- 📈 Biểu đồ doanh thu theo ngày
+- 🏟️ Chi tiết từng sân
+- 📅 Lọc theo khoảng thời gian
+
+**ADMIN:**
+- 📊 Tổng doanh thu hệ thống
+- 👥 Số users, owners
+- 🏟️ Số sân, đơn đặt
+
+### 📥 Module 7: Xuất báo cáo
+- 📗 **Excel (.xlsx)** - Chi tiết đơn đặt
+- 📕 **PDF** - Báo cáo tổng hợp
+
+### 👥 Module 8: Quản lý Users (ADMIN)
+- 📋 Danh sách tất cả users
+- 🔍 Lọc theo vai trò
+- 🔒 Khóa/Mở khóa tài khoản
+- 🔄 Thay đổi vai trò
+- 🗑️ Xóa tài khoản
+
+---
+
+## 🛠️ Công nghệ sử dụng
+
+### Backend
+| Công nghệ | Phiên bản | Mô tả |
+|-----------|-----------|-------|
+| Java | 17 | Ngôn ngữ chính |
+| Spring Boot | 3.4.11 | Framework |
+| Spring Security | - | Authentication |
+| Spring Data JPA | - | ORM |
+| JWT (jjwt) | 0.11.5 | Token Auth |
+| MySQL | 8.0+ | Database |
+| Apache POI | 5.2.5 | Export Excel |
+| iText7 | 7.2.5 | Export PDF |
+| Lombok | - | Reduce boilerplate |
+
+### Frontend
+| Công nghệ | Phiên bản | Mô tả |
+|-----------|-----------|-------|
+| React | 19.2.0 | UI Library |
+| Vite | 7.2.2 | Build Tool |
+| React Router | 7.9.5 | Routing |
+| Axios | 1.13.2 | HTTP Client |
+
+### UI Theme
+- 🟢 **Primary:** #1a5f2a (Xanh sân cỏ)
+- 🟡 **Accent:** #fbbf24 (Vàng)
+- 📱 Responsive Design
+
+---
+
+## 📂 Cấu trúc Project
+
+```
+smartpitchbooking/
+├── 📁 src/main/java/com/dung/smartpitchbooking/
+│   ├── 📁 config/           # DataInitializer
+│   ├── 📁 controller/       # REST APIs
+│   │   ├── AuthController.java
+│   │   ├── UserController.java
+│   │   ├── PitchController.java
+│   │   ├── BookingController.java
+│   │   ├── ReviewController.java
+│   │   ├── StatisticsController.java
+│   │   ├── ReportController.java
+│   │   └── AdminController.java
+│   ├── 📁 dto/              # Request/Response DTOs
+│   ├── 📁 entity/           # JPA Entities
+│   │   ├── User.java
+│   │   ├── Pitch.java
+│   │   ├── Booking.java
+│   │   └── Review.java
+│   ├── 📁 exception/        # Global Exception Handler
+│   ├── 📁 repository/       # JPA Repositories
+│   ├── 📁 scheduler/        # Scheduled Tasks
+│   ├── 📁 security/         # JWT, Security Config
+│   └── 📁 service/          # Business Logic
+│
+├── 📁 frontend/
+│   ├── 📁 public/           # Static assets
+│   ├── 📁 src/
+│   │   ├── 📁 components/   # Navbar, SearchFilter
+│   │   ├── 📁 contexts/     # AuthContext
+│   │   ├── 📁 pages/        # 11 pages
+│   │   └── 📁 services/     # API calls
+│   └── package.json
+│
+├── pom.xml
+└── README.md
+```
+
+---
+
+## 🚀 Hướng dẫn cài đặt
+
+### Yêu cầu
+- ☕ Java JDK 17+
+- 🐬 MySQL 8.0+
+- 📦 Node.js 18+
+- 🔧 Maven 3.8+
+
+### 1️⃣ Clone project
+```bash
+git clone https://github.com/doanthetin193/smart_pitch_booking.git
+cd smart_pitch_booking
+```
+
+### 2️⃣ Cấu hình Database
+File `src/main/resources/application.properties`:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/smartpitchbooking?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=YOUR_PASSWORD
+```
+
+### 3️⃣ Chạy Backend
+```bash
+# Windows
+.\mvnw.cmd spring-boot:run
+
+# Linux/Mac
+./mvnw spring-boot:run
+```
+🌐 Backend: `http://localhost:8080`
+
+### 4️⃣ Chạy Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+🌐 Frontend: `http://localhost:5173`
+
+---
+
+## 👥 Tài khoản test
+
+| Username | Password | Role | Mô tả |
+|----------|----------|------|-------|
+| `admin` | `admin123` | ADMIN | Quản trị viên |
+| `owner1` | `123456` | OWNER | Chủ sân (6 sân mẫu) |
+| `user1` | `123456` | USER | Người dùng |
+
+---
+
+## 📡 API Endpoints
+
+### 🔐 Authentication
+| Method | Endpoint | Mô tả |
+|--------|----------|-------|
+| POST | `/api/auth/register` | Đăng ký |
+| POST | `/api/auth/login` | Đăng nhập |
+
+### 👤 User
+| Method | Endpoint | Mô tả |
+|--------|----------|-------|
+| GET | `/api/users/profile` | Lấy profile |
+| PUT | `/api/users/profile` | Cập nhật profile |
+| PUT | `/api/users/change-password` | Đổi mật khẩu |
+
+### ⚽ Pitches
+| Method | Endpoint | Auth | Mô tả |
+|--------|----------|------|-------|
+| GET | `/api/pitches` | - | Sân đã duyệt |
+| GET | `/api/pitches/{id}` | - | Chi tiết sân |
+| GET | `/api/pitches/search` | - | Tìm kiếm |
+| GET | `/api/pitches/cities` | - | DS thành phố |
+| POST | `/api/pitches` | OWNER | Tạo sân |
+| PUT | `/api/pitches/{id}` | OWNER | Sửa sân |
+| DELETE | `/api/pitches/{id}` | OWNER | Xóa sân |
+| GET | `/api/pitches/my-pitches` | OWNER | Sân của tôi |
+| GET | `/api/pitches/admin/all` | ADMIN | Tất cả sân |
+| PUT | `/api/pitches/admin/{id}/approve` | ADMIN | Duyệt sân |
+
+### 📅 Bookings
+| Method | Endpoint | Auth | Mô tả |
+|--------|----------|------|-------|
+| GET | `/api/bookings/available-slots/{pitchId}` | - | Khung giờ trống |
+| POST | `/api/bookings` | USER | Đặt sân |
+| GET | `/api/bookings/my-bookings` | USER | Lịch của tôi |
+| PUT | `/api/bookings/{id}/cancel` | USER | Hủy đặt |
+| GET | `/api/bookings/owner/all` | OWNER | Đơn đặt sân |
+| PUT | `/api/bookings/owner/{id}/confirm` | OWNER | Xác nhận |
+| PUT | `/api/bookings/owner/{id}/reject` | OWNER | Từ chối |
+
+### ⭐ Reviews
+| Method | Endpoint | Auth | Mô tả |
+|--------|----------|------|-------|
+| GET | `/api/reviews/pitch/{pitchId}` | - | Đánh giá sân |
+| GET | `/api/reviews/pitch/{pitchId}/summary` | - | Tổng hợp |
+| POST | `/api/reviews` | USER | Tạo đánh giá |
+| DELETE | `/api/reviews/{id}` | USER | Xóa |
+
+### 📊 Statistics & Reports
+| Method | Endpoint | Auth | Mô tả |
+|--------|----------|------|-------|
+| GET | `/api/statistics/owner` | OWNER | Thống kê |
+| GET | `/api/statistics/admin` | ADMIN | Thống kê |
+| GET | `/api/reports/owner/excel` | OWNER | Xuất Excel |
+| GET | `/api/reports/owner/pdf` | OWNER | Xuất PDF |
+
+### 👥 Admin
+| Method | Endpoint | Mô tả |
+|--------|----------|-------|
+| GET | `/api/admin/users` | DS users |
+| PUT | `/api/admin/users/{id}/toggle-status` | Khóa/Mở |
+| PUT | `/api/admin/users/{id}/change-role` | Đổi role |
+| DELETE | `/api/admin/users/{id}` | Xóa user |
+
+---
+
+## 🔒 Bảo mật
+
+- 🔑 **JWT Authentication** - Token 24h
+- 🔐 **BCrypt Password** - Mã hóa mật khẩu
+- 🛡️ **Role-based Auth** - @PreAuthorize
+- 🌐 **CORS Config** - Frontend access
+
+---
+
+## 🧪 Testing
+
+**55 Test Cases** bao gồm:
+- ✅ Authentication: 8 cases
+- ✅ Pitch Management: 10 cases
+- ✅ Search & Filter: 7 cases
+- ✅ Booking: 10 cases
+- ✅ Reviews: 6 cases
+- ✅ Statistics: 4 cases
+- ✅ Admin: 6 cases
+- ✅ Profile: 4 cases
+
+---
+
+## 📝 License
+
+MIT License
+
+---
+
+## 👨‍💻 Tác giả
+
+**Nguyễn Văn Dũng**
+- 🎓 MSSV: 4551190009
+- 📧 Email: nguyenvandung6000@gmail.com
+
+---
+
+<div align="center">
+  <br/>
+  <strong>⚽ ĐặtSân247 - Đặt sân bóng chưa bao giờ dễ dàng đến thế! ⚽</strong>
+  <br/><br/>
+  Made with ❤️ in Vietnam
+</div>
