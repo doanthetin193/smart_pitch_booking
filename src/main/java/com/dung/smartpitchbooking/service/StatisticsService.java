@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.*;
@@ -38,7 +37,6 @@ public class StatisticsService {
     public OwnerStatisticsResponse getOwnerStatistics(User owner) {
         // Lấy danh sách sân của owner
         List<Pitch> ownerPitches = pitchRepository.findByOwner(owner);
-        List<Long> pitchIds = ownerPitches.stream().map(Pitch::getId).collect(Collectors.toList());
         
         // Lấy tất cả booking của owner
         List<Booking> allBookings = bookingRepository.findByPitchOwner(owner);

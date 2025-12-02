@@ -97,10 +97,6 @@ const styles = {
     transition: 'color 0.3s',
     fontWeight: '500',
   },
-  username: {
-    color: '#333',
-    fontWeight: '500',
-  },
   profileLink: {
     color: '#333',
     textDecoration: 'none',

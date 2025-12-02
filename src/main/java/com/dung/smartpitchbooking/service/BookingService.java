@@ -6,11 +6,9 @@ import com.dung.smartpitchbooking.dto.TimeSlotResponse;
 import com.dung.smartpitchbooking.entity.Booking;
 import com.dung.smartpitchbooking.entity.Booking.BookingStatus;
 import com.dung.smartpitchbooking.entity.Pitch;
-import com.dung.smartpitchbooking.entity.TimeSlot;
 import com.dung.smartpitchbooking.entity.User;
 import com.dung.smartpitchbooking.repository.BookingRepository;
 import com.dung.smartpitchbooking.repository.PitchRepository;
-import com.dung.smartpitchbooking.repository.TimeSlotRepository;
 import com.dung.smartpitchbooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,9 +34,6 @@ public class BookingService {
     
     @Autowired
     private PitchRepository pitchRepository;
-    
-    @Autowired
-    private TimeSlotRepository timeSlotRepository;
     
     @Autowired
     private UserRepository userRepository;
